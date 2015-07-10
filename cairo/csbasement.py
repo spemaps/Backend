@@ -91,13 +91,6 @@ context.set_source_rgb (0.5, 0.0, 0.7) # Solid color
 context.set_line_width (.02)
 context.stroke ()
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 surface.write_to_png ("example6.png") # Output to PNG
-=======
-surface.write_to_png ("yay.png") # Output to PNG
->>>>>>> Stashed changes
-=======
 
-surface.write_to_png ("example6.png") # Output to PNG
->>>>>>> Stashed changes
+
