@@ -76,7 +76,7 @@ def colorFind(my_id):
 	
 	if my_gender == "F": return [255, 160, 255]
 	elif my_gender == "M": return [99, 184, 240] # light blue
-	elif my_type == "room": return [176,23,31]
+	elif my_type == "room": return [255,48,48]
 	elif my_type == "stairs": return [24, 116, 205]
 	elif my_type == "elevator": return [255, 215, 0]
 	elif my_type == "entry": return [0, 128, 0]
