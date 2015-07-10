@@ -1,3 +1,6 @@
+
+
+
 import math
 import cairo
 import json
@@ -18,16 +21,15 @@ context = cairo.Context (surface)
 WIDTH = cairo.ImageSurface.get_width(surface)
 HEIGHT = cairo.ImageSurface.get_height(surface)
 
-context.scale (WIDTH, HEIGHT)
+#context.scale (WIDTH, HEIGHT)
+SCALE = 1000
 
 
 def x_scale (x):
-	width = 1000.0
-	return (x + .5) / width
+	return (x + .5) * WIDTH / SCALE
 
 def y_scale (y):
-	height = 1000.0 * HEIGHT / WIDTH
-	return (y + .5) / height
+	return (y + .5) * WIDTH / SCALE
 
 def draw_node(cx,cy,r, rgb):
 	context.arc(x_scale(cx), y_scale(cy), r, 0, 2 * math.pi)
@@ -55,12 +57,12 @@ def draw_graph():
 				coords_1 = node.get('coords')
 			if node.get('id') is node_2:
 				coords_2 = node.get('coords')
-		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], .005)
+		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], 3)
 
 	for node in nodes:
 
 		if node.get('type') != 'walk':
-			draw_node(node.get('coords')[0], node.get('coords')[1], .01, colorFind(node.get('id')))
+			draw_node(node.get('coords')[0], node.get('coords')[1], 4, colorFind(node.get('id')))
 
 
 			
