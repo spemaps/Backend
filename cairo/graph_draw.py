@@ -58,7 +58,8 @@ def draw_graph():
 		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], .005)
 
 	for node in nodes:
-		draw_node(node.get('coords')[0], node.get('coords')[1], .01, [0,0,0])
+		if node.get('type') != 'walk':
+			draw_node(node.get('coords')[0], node.get('coords')[1], .01, [0,0,0])
 
 def draw_path(path):
 	result = {"key": "value"}
