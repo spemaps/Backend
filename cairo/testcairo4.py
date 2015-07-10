@@ -3,7 +3,9 @@ import cairo
 import json
 
 #filename = raw_input('filename: ')
+
 graph = json.loads(open('floor2.txt').read())
+
 print graph
 image = graph.get('image')
 nodes = graph.get('nodes')
