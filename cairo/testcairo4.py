@@ -1,39 +1,49 @@
 import math
 import cairo
+import json
 
-WIDTH, HEIGHT = 600, 600
+#filename = raw_input('filename: ')
+graph = json.loads(open('floor1.txt').read())
+print graph
+image = graph.get('image')
+nodes = graph.get('nodes')
+edges = graph.get('edges')
 
-#surface = cairo.ImageSurface (cairo.FORMAT_ARGB32, WIDTH, HEIGHT)
+
+
 # set background image
-surface = cairo.ImageSurface.create_from_png ('example4.png')
-ctx = cairo.Context (surface)
+surface = cairo.ImageSurface.create_from_png (image)
 
-ctx.scale (WIDTH, HEIGHT) # Normalizing the canvas
+context = cairo.Context (surface)
 
-pat = cairo.LinearGradient (0.0, 0.0, 0.0, 1.0)
-#pat.add_color_stop_rgba (0.0, 0.0, 0.8, 0, 0.5) # Last stop, 100% opacity
-#pat.add_color_stop_rgba (0.6, 0.0, 0.4, 0.4, 0.5) # Last stop, 100% opacity
-pat.add_color_stop_rgba (1, 0.9, 0.2, 0.0, 0.5) # First stop, 50% opacity
+WIDTH = cairo.ImageSurface.get_width(surface)
+HEIGHT = cairo.ImageSurface.get_height(surface)
 
-
-ctx.rectangle (0, 0, 1, 1) # Rectangle(x0, y0, x1, y1)
-ctx.set_source (pat)
-ctx.fill ()
-
-ctx.translate (0.1, 0.1) # Changing the current transformation matrix
-
-#ctx.move_to (0.1, 0.1)
-#ctx.arc (0.2, 0.1, 0.1, -math.pi/2, 0) # Arc(cx, cy, radius, start_angle, stop_angle)
-#ctx.line_to (0.5, 0.1) # Line to (x,y)
-#ctx.curve_to (0.5, 0.2, 0.5, 0.4, 0.2, 0.8) # Curve(x1, y1, x2, y2, x3, y3)
-#ctx.close_path ()
+context.scale (WIDTH, HEIGHT)
 
 
-ctx.move_to(0.4, 0.6)
-ctx.line_to (0.2, 0.9)
+def x_scale (x):
+	width = 1000.0
+	return (x + .5) / width
 
-ctx.set_source_rgb (0.5, 0.0, 0.7) # Solid color
-ctx.set_line_width (0.02)
-ctx.stroke ()
+def y_scale (y):
+	height = 1000.0 * HEIGHT / WIDTH
+	return (y + .5) / height
 
-surface.write_to_png ("example6.png") # Output to PNG
+def draw_node(cx,cy,r):
+	context.arc(x_scale(cx), y_scale(cy), r, 0, 2 * math.pi)
+	context.set_source_rgb(0,0,0)
+	context.stroke()
+
+#function to draw edges
+def draw_edge(x0,y0,x1,y1):
+	context.move_to(x_scale(x0),y_scale(y0))
+	context.line_to(x_scale(x1),y_scale(y1))
+	context.set_source_rgb(0,0,0)
+	context.set_line_width(0.005)
+	context.stroke()
+
+
+
+new_image = 'graph' + image
+surface.write_to_png (new_image) # Output to PNG
