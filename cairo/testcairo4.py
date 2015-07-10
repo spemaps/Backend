@@ -3,7 +3,7 @@ import cairo
 import json
 
 #filename = raw_input('filename: ')
-graph = json.loads(open('floor1.txt').read())
+graph = json.loads(open('floor2.txt').read())
 print graph
 image = graph.get('image')
 nodes = graph.get('nodes')
@@ -12,7 +12,7 @@ edges = graph.get('edges')
 
 
 # set background image
-surface = cairo.ImageSurface.create_from_png (image)
+surface = cairo.ImageSurface.create_from_png(image)
 
 context = cairo.Context (surface)
 
