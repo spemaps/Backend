@@ -59,7 +59,7 @@ def draw_graph():
 
 	for node in nodes:
 		if node.get('type') != 'walk':
-			draw_node(node.get('coords')[0], node.get('coords')[1], .01, [0,0,0])
+			draw_node(node.get('coords')[0], node.get('coords')[1], .01, colorFind(node.get('id')))
 
 def draw_path(path):
 	result = {"key": "value"}
