@@ -4,7 +4,7 @@ import json
 
 #filename = raw_input('filename: ')
 
-graph = json.loads(open('floor2.txt').read())
+graph = json.loads(open('floor1.txt').read())
 
 print graph
 image = graph.get('image')
@@ -45,6 +45,9 @@ def draw_edge(x0,y0,x1,y1):
 	context.set_line_width(0.005)
 	context.stroke()
 
+
+for n in nodes:
+    draw_node
 
 
 new_image = 'graph' + image

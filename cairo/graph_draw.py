@@ -58,8 +58,28 @@ def draw_graph():
 		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], .005)
 
 	for node in nodes:
+
 		if node.get('type') != 'walk':
 			draw_node(node.get('coords')[0], node.get('coords')[1], .01, colorFind(node.get('id')))
+
+
+			
+def colorFind(my_id):
+	my_type = ""
+	my_gender = ""
+	for node in nodes:
+		if node.get('id') == my_id:
+			my_type = node.get('type')
+			my_gender = node.get('gender')
+	
+	if my_gender == "F": return [255, 160, 255]
+	elif my_gender == "M": return [99, 184, 240] # light blue
+	elif my_type == "room": return [176,23,31]
+	elif my_type == "stairs": return [24, 116, 205]
+	elif my_type == "elevator": return [255, 215, 0]
+	elif my_type == "entry": return [0, 128, 0]
+
+
 
 def draw_path(path):
 	result = {"key": "value"}

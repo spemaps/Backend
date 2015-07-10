@@ -3,7 +3,7 @@ import cairo
 import json
 
 
-tx = open("floor3.txt").read()
+tx = open("floor2.txt").read()
 json.loads(tx)
 
 print tx
@@ -69,9 +69,6 @@ context.line_to (0.5, 0.1) # Line to (x,y)
 context.curve_to (0.5, 0.2, 0.5, 0.4, 0.2, 0.8) # Curve(x1, y1, x2, y2, x3, y3)
 #context.close_path ()
 
-
-testx = 20
-testy =50
 
 
 
