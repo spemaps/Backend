@@ -1,15 +1,11 @@
 import math
 import cairo
-
-
-
 import json
 
 tx = open("floor3.txt").read()
 json.loads(tx)
 
 print tx
-
 
 #WIDTH, HEIGHT = 600, 600
 
@@ -34,6 +30,20 @@ pat.add_color_stop_rgba (HEIGHT, 0.9, 0.2, 0.0, 0.5) # First stop, 50% opacity
 ctx.rectangle (0, 0, WIDTH, HEIGHT) # Rectangle(x0, y0, x1, y1)
 ctx.set_source (pat)
 ctx.fill ()
+
+#function to draw nodes
+def draw_node(cx,cy,r):
+	context.arc(cx, cy, r, 0, 2 * math.pi)
+	context.set_source_rgb(0,0,0)
+	context.stroke()
+
+#function to draw edges
+def draw_edge(x0,y0,x1,y1):
+	context.move_to(x0,y0)
+	context.line_to(x1,y1)
+	context.set_source_rgb(0,0,0)
+	context.set_line_width(0.02)
+	context.stroke()
 
 #ctx.translate (0.1, 0.1) # Changing the current transformation matrix
 
