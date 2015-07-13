@@ -1,6 +1,3 @@
-
-
-
 import math
 import cairo
 import json
@@ -11,7 +8,7 @@ image = graph.get('image')
 nodes = graph.get('nodes')
 edges = graph.get('edges')
 
-
+colorDict= {"F": [255, 160, 255], "M": [99, 184, 240], "room":[255, 48, 48], "stairs": [24, 116, 205], "elevator": [255, 215, 0], "entry": [0, 128, 0]}
 
 # set background image
 surface = cairo.ImageSurface.create_from_png (image)
@@ -37,6 +34,7 @@ def draw_node(cx,cy,r, rgb):
 	context.fill()
 	context.stroke()
 
+
 #function to draw edges
 def draw_edge(x0,y0,x1,y1, rgb, width):
 	context.move_to(x_scale(x0),y_scale(y0))
@@ -57,31 +55,22 @@ def draw_graph():
 				coords_1 = node.get('coords')
 			if node.get('id') is node_2:
 				coords_2 = node.get('coords')
-		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], 3)
+		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [0,0,0], 1)
 
 	for node in nodes:
 
 		if node.get('type') != 'walk':
 			draw_node(node.get('coords')[0], node.get('coords')[1], 4, colorFind(node.get('id')))
 
-
 			
 def colorFind(my_id):
 	my_type = ""
-	my_gender = ""
 	for node in nodes:
 		if node.get('id') == my_id:
 			my_type = node.get('type')
-			my_gender = node.get('gender')
+			if my_type == 'bathroom': my_type = node.get('gender')
+	return colorDict.get(my_type)
 	
-	if my_gender == "F": return [255, 160, 255]
-	elif my_gender == "M": return [99, 184, 240] # light blue
-	elif my_type == "room": return [255,48,48]
-	elif my_type == "stairs": return [24, 116, 205]
-	elif my_type == "elevator": return [255, 215, 0]
-	elif my_type == "entry": return [0, 128, 0]
-
-
 
 def draw_path(path):
 	result = {"key": "value"}
@@ -95,7 +84,7 @@ def draw_path(path):
 				coords_1 = node.get('coords')
 			if node.get('id') is node_2:
 				coords_2 = node.get('coords')
-		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [255, 0, 0], .009)
+		draw_edge(coords_1[0], coords_1[1], coords_2[0], coords_2[1], [255, 0, 0], 3)
 		#find start and end nodes
 		if not node_1 in result:
 			result[node_1] = 1 
@@ -109,7 +98,7 @@ def draw_path(path):
 			endpoints.append(key)
 	for node in nodes: #draw endpoints
 		if node['id'] is endpoints[0] or node['id'] is endpoints[1]:
-			draw_node(node.get('coords')[0], node.get('coords')[1], .01, [255,0,0])
+			draw_node(node.get('coords')[0], node.get('coords')[1], 4, [255,0,0])
 
 
 draw_graph()
