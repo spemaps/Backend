@@ -15,7 +15,10 @@ class Graph(object):
 
 
 class Building(object):
-
+	floors = {}
+	main = None
+	entrypoints = None
+	directory = None
 	def __init__(self, name):
 		self.name = name
 		old_directory = os.getcwd()
@@ -25,7 +28,6 @@ class Building(object):
 		self.main = json.loads(open('main.txt').read()) #main.txt
 		self.entrypoints = json.loads(open('entrypoints.txt').read())#entrypoints.txt
 		self.directory = os.getcwd() #directory
-		floors = {}
 		dirs = os.listdir(self.directory)
 		file_names = re.compile("floor(-)?[0-9]+.txt")
 		for files in dirs:
