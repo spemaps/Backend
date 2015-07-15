@@ -4,9 +4,8 @@ import sys
 import re
 import json
 
-buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
 
-class Graph(object):
+class floorGraph(object):
 	def __init__(self, image, nodes, edges, scale):
 		self.image = image
 		self.nodes = nodes
@@ -19,6 +18,7 @@ class Building(object):
 	main = None
 	entrypoints = None
 	directory = None
+	buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
 	def __init__(self, name):
 		self.name = name
 		old_directory = os.getcwd()
@@ -35,7 +35,7 @@ class Building(object):
 			if file_names.match(files):
 				text = json.loads(open(files).read())
 				if text['building'] == name and ('floor' + str(text['floor']) +'.txt') == files:
-					floors[files] = Graph(text['image'], text['nodes'], text['edges'], text['scale'])
+					floors[files[:-4]] = floorGraph(text['image'], text['nodes'], text['edges'], text['scale'])
 		self.floors = floors
 		os.chdir(old_directory)
 
