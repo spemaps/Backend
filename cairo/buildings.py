@@ -4,7 +4,7 @@ import sys
 import re
 import json
 
-buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
+buildings_filepath = '/Users/kristyyeung/Documents/Backend/buildings' #filepath
 
 class floorGraph(object):
 	def __init__(self, image, nodes, edges, scale):
@@ -45,4 +45,3 @@ class Building(object):
 		os.chdir(old_directory)
 
 csbuilding = Building('csbuilding')
-def findType():
