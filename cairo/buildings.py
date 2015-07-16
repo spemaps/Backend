@@ -4,6 +4,7 @@ import sys
 import re
 import json
 
+buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
 
 class floorGraph(object):
 	def __init__(self, image, nodes, edges, scale):
@@ -18,7 +19,6 @@ class Building(object):
 	main = None
 	entrypoints = None
 	directory = None
-	buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
 	def __init__(self, name):
 		self.name = name
 		old_directory = os.getcwd()
@@ -30,6 +30,7 @@ class Building(object):
 		self.directory = os.getcwd() #directory
 		dirs = os.listdir(self.directory)
 		file_names = re.compile("floor(-)?[0-9]+.txt")
+		floors = {}
 		for files in dirs:
 			print files
 			if file_names.match(files):
@@ -37,6 +38,11 @@ class Building(object):
 				if text['building'] == name and ('floor' + str(text['floor']) +'.txt') == files:
 					floors[files[:-4]] = floorGraph(text['image'], text['nodes'], text['edges'], text['scale'])
 		self.floors = floors
+
+		##connect floors
+
+
 		os.chdir(old_directory)
 
 csbuilding = Building('csbuilding')
+def findType():
