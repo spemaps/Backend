@@ -65,7 +65,8 @@ class Building(object):
 				abs_coords = ["PU." + str(self.id) + "." + str(floor_val) + "." + str(edge['coords'][0]), "PU." + str(self.id) + "." + str(floor_val) + "." + str(edge['coords'][1])]
 				edge['abs_coords'] = abs_coords
 
-		connections = []
+		eConnections = []
+		sConnections = []
 		for stairsets in stairs:
 			stairset = stairs[stairsets] #set of nodes in stairset
 			for nodeA in stairset:
@@ -85,12 +86,12 @@ class Building(object):
 						downNode = node
 				if upNode != "":
 					coords = [nodeA['abs_id'], upNode['abs_id']]
-					if not [upNode['abs_id'], nodeA['abs_id']] in connections:
-						connections.append(coords)
+					if not [upNode['abs_id'], nodeA['abs_id']] in sConnections:
+						sConnections.append(coords)
 				if downNode != "":
 					coords = [nodeA['abs_id'], downNode['abs_id']]
-					if not [downNode['abs_id'], nodeA['abs_id']] in connections:
-						connections.append(coords)
+					if not [downNode['abs_id'], nodeA['abs_id']] in sConnections:
+						sConnections.append(coords)
 
 		for stairset in elevator:
 			stairset = elevator[stairsets] #set of nodes in stairset
@@ -98,13 +99,15 @@ class Building(object):
 				for nodeB in stairset:
 					coords = [nodeA['abs_id'], nodeB['abs_id']]
 					if coords[0] is not coords[1]:
-						connections.append(coords)
+						eConnections.append(coords)
 		#remove duplicates
-		for connection in connections:
-			for connectionB in connections:
+		for connection in eConnections:
+			for connectionB in eConnections:
 				if connectionB[0] == connection[1] and connectionB[1] == connection[0]:
-					connections.remove(connectionB)
-		self.connections = connections
+					eConnections.remove(connectionB)
+		self.eConnections = eConnections
+		self.sConnections = sConnections
 		os.chdir(old_directory)
 
 csbuilding = Building('csbuilding')
+
