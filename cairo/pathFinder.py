@@ -25,18 +25,37 @@ def pathSort(pathList): #pathlist = list of nodes in path
 			path.append({"floor":floorname, "path":nodelist})
 	return path   #return in list of dicitonaries [{"floor":"floor#", "path":[nodes in path]}]
 
-csbuilding = Building('csbuilding')
-networkGraph = NetworkGraph(csbuilding)
-start = 'PU.1.1.29'
-end = 'PU.1.4.66'
-path = networkGraph.dijkstra(start, end)
+building = Building('csbuilding')
+networkGraph = NetworkGraph(building)
+begin = raw_input('start: ').lower()
+dest = raw_input('destination: ').lower()
 
-floorPaths = pathSort(path)
+#make lowercase
+beginNumber = re.search(re.compile("([0-9]+[a-z]?)"), begin).group(1)
+destNumber = re.search(re.compile("([0-9]+[a-z]?)"), dest).group(1)
+start = ''
+end = ''
+for floor in building.floors:
+	for node in building.floors[floor].nodes:
+		if node['type'] == 'room':
+			if node['room'] == beginNumber:
+				start = node['abs_id']
+			if node['room'] == destNumber:
+				end = node['abs_id']
 
-for floorPath in floorPaths:
-	floor = floorPath['floor']
-	path = floorPath['path']
-	pictureGraph = PictureGraph(csbuilding, floor)
-	pictureGraph.draw_graph()
-	pictureGraph.draw_path(path)
-	pictureGraph.show()
+if start != '' and end != '':
+	path = networkGraph.dijkstra(start, end)
+
+	floorPaths = pathSort(path)
+
+	for floorPath in floorPaths:
+		floor = floorPath['floor']
+		path = floorPath['path']
+		pictureGraph = PictureGraph(building, floor)
+		#pictureGraph.draw_graph()
+		pictureGraph.draw_path(path)
+		pictureGraph.show()
+elif start == '':
+	print 'Invalid start'
+else:
+	print 'Invalid destination'
