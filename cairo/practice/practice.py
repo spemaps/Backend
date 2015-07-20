@@ -22,19 +22,38 @@ def buildingToGraph(building):
 		for edge in building.floors[floor].edges:
 			absCoords = edge['abs_coords']
 			G.add_edge(absCoords[0], absCoords[1], weight = calculateWeight(building, floor, edge))
+			if 'accesibility' in edge:
+				G.edge[absCoords[0]][absCoords[1]]['accesibility'] = edge['accesibility']
 	for connection in building.sConnections:
 		G.add_edge(connection[0], connection[1], weight = 1)
 	for connection in building.eConnections:
 		G.add_edge(connection[0], connection[1], weight = 2)
+	for floor in building.floors:
+		for node in building.floors[floor].nodes:
+			G.add_node(node['abs_id'], node)
 	return G
 
 
-G = buildingToGraph(sys.argv[0])
+def removeNodes(nodeList):
+	removed = {}
+	for node in nodeList:
+		removed[node] = G[node]
+		G.remove_node(node)
+	return removed
 
-path = nx.dijkstra_path(G, 'PU.1.1.29', 'PU.1.4.66')
-print path
+def addNodes(removeList):
+	for node in removeList:
+		for connection in removeList[node]:
+			G.add_edge(node, connection, removeList[node][connection])
 
-nx.draw(G)
-plt.show()
+
+def removeEdge(edge): #[coordA, coordB]
+	removed = {'edge':edge, 'properties':G[edge[0]][edge[1]]}
+	G.remove_edge(edge[0], edge[1])
+	return removed
+
+def addEdge(edge, properties): #edge is list of nodes, properties is dictionary
+	G.add_edge(edge[0], edge[1], properties)
+
 
 

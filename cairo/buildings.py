@@ -6,7 +6,7 @@ import json
 
 buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
 
-class floorGraph(object):
+class FloorGraph(object):
 	def __init__(self, image, nodes, edges, scale):
 		self.image = image
 		self.nodes = nodes
@@ -37,7 +37,7 @@ class Building(object):
 			if file_names.match(files):
 				text = json.loads(open(files).read())
 				if text['building'] == name and ('floor' + str(text['floor']) +'.txt') == files:
-					floors[files[:-4]] = floorGraph(text['image'], text['nodes'], text['edges'], text['scale'])
+					floors[files[:-4]] = FloorGraph(text['image'], text['nodes'], text['edges'], text['scale'])
 		self.floors = floors
 
 		stairs = {}
@@ -108,6 +108,3 @@ class Building(object):
 		self.eConnections = eConnections
 		self.sConnections = sConnections
 		os.chdir(old_directory)
-
-csbuilding = Building('csbuilding')
-
