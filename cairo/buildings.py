@@ -5,6 +5,7 @@ import re
 import json
 
 class FloorGraph(object):
+
 	def __init__(self, image, nodes, edges, scale):
 		self.image = image
 		self.nodes = nodes
