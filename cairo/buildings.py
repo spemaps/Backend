@@ -4,8 +4,6 @@ import sys
 import re
 import json
 
-buildings_filepath = '/Users/Angela/spe/Backend/buildings' #filepath
-
 class FloorGraph(object):
 	def __init__(self, image, nodes, edges, scale):
 		self.image = image
@@ -25,7 +23,7 @@ class Building(object):
 		self.name = name
 		old_directory = os.getcwd()
 		if (os.path.basename(os.getcwd()) != name): # not in directory change to directory
-			os.chdir(os.path.join(buildings_filepath, name))
+			os.chdir(os.path.join(os.getcwd(), '..', 'buildings', name))
 		#load all the stuff
 		self.main = json.loads(open('main.txt').read()) #main.txt
 		self.entrypoints = json.loads(open('entrypoints.txt').read())#entrypoints.txt

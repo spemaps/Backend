@@ -3,6 +3,7 @@ import math
 import cairo
 import json
 import sys
+import os
 from PIL import Image
 
 class PictureGraph(object):
@@ -12,7 +13,11 @@ class PictureGraph(object):
 		self.image = building.floors[floor].image
 		self.nodes = building.floors[floor].nodes
 		self.edges = building.floors[floor].edges
+		#change directory
+		oldDir = os.getcwd()
+		os.chdir(building.directory)
 		self.surface = cairo.ImageSurface.create_from_png(self.image)
+		os.chdir(oldDir)
 		self.context = cairo.Context(self.surface)
 		self.WIDTH = cairo.ImageSurface.get_width(self.surface)
 		self.HEIGHT = cairo.ImageSurface.get_height(self.surface)
